@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class UserServiceImpli implements UserService{
 //		return UserRepo.findByName(name);
 
 		UserRepo.insertByDetails(id,name,gender);
+	}
+	@Override
+	public List<User> getData() {
+		
+		return UserRepo.returnTableData();
 	}
 
 	

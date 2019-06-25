@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.Entity.User;
@@ -12,4 +13,5 @@ public interface UserService {
 	Optional<User> findById(Long id);
 	User retrieveByNameAndGender(String name, String gender);
 	void insertByDetails(long id,String name,String gender);
+	List<User> getData();
 }
