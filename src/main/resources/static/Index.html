@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p id= "p"></p>
+    name: <input type="text" id="name">
+    gender:<input type="text"id="gender">
+     <input type ="button" value = "submit" onclick= insertData()>  
+   
+    <input type ="submit" value = "return data" onclick= callDb()> 
+    <table id="table" border=1>
+    <tr>
+    <td>Name
+    </td>
+    <td>
+    Gender
+    </td>
+    </tr>
+    <table id ="table1" border=1></table>
+    </table>
+     <script type="text/javascript">   
+     function insertData() {
+  		var name = document.getElementById("name").value;
+  		var gender = document.getElementById("gender").value;
+  		var data ={
+  					"name":name,
+  					"gender":gender 
+  				   }
+		/* var display =JSON.stringify(data); */
+        fetch("http://localhost:8080/put",{
+        	method:'post', 
+        	body:JSON.stringify(data),
+        	headers: {
+        	          'Content-type': 'application/json',
+       			 }
+        })   
+     	.then((res) =>res.json()) 
+     	.then(function(check1) {
+     		console.log(data);
+     	})
+     	.catch(error => console.log(error));	 
+     }
+   function callDb() {
+    	fetch("http://localhost:8080/get")   
+    	.then(response => response.json())
+    	.then(function(check) {
+    		var display =check.toSource();
+    		alert(check.length);
+    		var tableItem = document.getElementById("table1");
+    		var rowItem = document.getElementById("tr");
+    		var colItem = document.getElementById("td");
+			var breakItem = document.createElement("br");
+			/* var name = document.getElementById("p");
+			name.append("Name");
+			name.append(".....");
+			name.append("Gender"); */
+    		for(var i=0;i<check.length;i++) {
+    			var breakItem = document.createElement("br");
+    			var row = tableItem.insertRow(i);
+    			for(var j=0;j<2;j++) {
+    				var data = row.insertCell(j);
+    				if(j==0){
+    				data.innerHTML = check[i].name;
+    				} else {
+    					data.innerHTML = check[i].gender;
+    				}
+    			}
+    		}
+    	})
+    	.catch(error => console.log(error));
+   }
+   </script>  
+</body>
+</html>
