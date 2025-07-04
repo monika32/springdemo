@@ -35,6 +35,7 @@ public class UserController  {
 	public User getUserByName(@PathVariable("name") String name) {
 		
 		return UserService.retrieveByName(name);
+		//springdemo-001
 	}
 	
 	@GetMapping("/name/gender/{name}/{gender}")
